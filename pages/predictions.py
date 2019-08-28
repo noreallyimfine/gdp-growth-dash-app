@@ -6,11 +6,12 @@ from dash.dependencies import Input, Output
 
 from app import app
 from joblib import load
-pipeline = load('assets/pipeline.joblib')
+pipeline = load('assets/pipeline2.joblib')
 
 import pandas as pd
+import category_encoders as ce
 import pickle
-data = pickle.load( open('C://Users/ajaco/Desktop/PortfolioProject/pipeline_data.p', 'rb'))
+data = pickle.load( open('assets/pipeline_data.p', 'rb'))
 
 states = data['State'].unique().tolist()
 industry = data['Sub-industry'].unique().tolist()
@@ -169,6 +170,7 @@ def predict(state, growth_rate, payroll, gdp, pay_inc, industry, ten_yr_pay):
                  'Last Year Growth Rate', '2 Year Ago Payroll Increase', 'Ten Year Payroll Change'],
         data=[[state, industry, gdp, payroll, growth_rate,  pay_inc, ten_yr_pay]]
     )
+
     y_pred = pipeline.predict(df)[0]
 
     return f'{industry} in {state} will {y_pred} this year.'
