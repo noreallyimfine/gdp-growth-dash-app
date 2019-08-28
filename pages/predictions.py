@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 
 from app import app
 from joblib import load
-pipeline = load('assets/pipeline2.joblib')
+pipeline = load('assets/pipeline.joblib')
 
 import pandas as pd
 import category_encoders as ce
@@ -100,11 +100,11 @@ column2 = dbc.Col(
             html.Div([
             dcc.Markdown('### Past Year Total GDP (in millions of USD)'),
             dcc.Input(
-                    id='gdp',
-                    type='number',
-                    placeholder=2800,
-                    min=0,
-                    max=10000,
+                id='gdp',
+                type='number',
+                placeholder=2800,
+                min=0,
+                max=10000,
             ),
             ], style={'align': 'left'}),
             html.Div([
@@ -147,7 +147,7 @@ column2 = dbc.Col(
 
 pred_out = dbc.Row(
     [
-        html.H2('Growth Prediction', className='mb-5'),
+        html.H2('Growth Prediction:', className='mb-5'),
         html.Br(),
         html.Div(id='prediction-content', className='lead')
     ]
@@ -174,4 +174,5 @@ def predict(state, growth_rate, payroll, gdp, pay_inc, industry, ten_yr_pay):
     y_pred = pipeline.predict(df)[0]
 
     return f'{industry} in {state} will {y_pred} this year.'
+
 layout = dbc.Container(header), dbc.Row([column1, column2]), pred_out
