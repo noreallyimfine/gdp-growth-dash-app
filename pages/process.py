@@ -20,7 +20,9 @@ column1 = dbc.Col(
             plus a few aggregations of regions and the country as a whole.  
             """
         ),
-        html.Img(src='assets/df_2.png', className='img-fluid'),
+        html.Img(src='assets/df_2.png',
+                className='img-fluid', 
+        ),
         dcc.Markdown(
             """ 
               
