@@ -28,29 +28,26 @@ column1 = dbc.Col(
     [
         dcc.Markdown(
             """
-        
-            ## Value Proposition
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
+            ## Predict GDP Growth by Industry
 
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
+            While GDP ([Gross Domestic Product](https://en.wikipedia.org/wiki/Gross_domestic_product)) is most commonly talked about on a national scale,
+             a more fine-grained approach can be very informative. 
 
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
+            The **Grow or Contract** app looks at the industries within each state and predicts how they will do individually.
+
+            This approach allows you to keep your finger on the pulse of, not just the economy as a whole, but the specific industries relevant to you.
 
             """
         ),
-        dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Find a Prediction', color='primary'), href='/predictions')
     ],
     md=4,
 )
 
-gapminder = px.data.gapminder()
-fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
-           hover_name="country", log_x=True, size_max=60)
-
 column2 = dbc.Col(
     [
-        dcc.Graph(figure=fig),
+        html.Img(src='assets/gdp_image.jpg', className='img-fluid max-width: 50%'),
     ]
 )
 
