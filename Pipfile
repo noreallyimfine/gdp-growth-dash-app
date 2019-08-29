@@ -12,7 +12,7 @@ gunicorn = "*"
 plotly = "*"
 jupyter = "*"
 pandas = "*"
-scikit-learn = "==0.21.2"
+scikit-learn = {file = "https://files.pythonhosted.org/packages/1e/ce/9d8c88e68af0a5b5c5d78d8d2b7bcadfd45e1d6afc863ccb9aee30765b06/scikit-learn-0.21.3.tar.gz"}
 category-encoders = "*"
 xgboost = "*"
 dash-daq = "*"

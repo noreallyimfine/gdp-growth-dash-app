@@ -9,13 +9,10 @@ from joblib import load
 pipeline = load('assets/pipeline.joblib')
 
 import pandas as pd
-import category_encoders as ce
-import pickle
-data = pickle.load( open('assets/pipeline_data.p', 'rb'))
+X = load('assets/X.joblib')
 
-states = data['State'].unique().tolist()
-industry = data['Sub-industry'].unique().tolist()
-
+states = X['State'].unique().tolist()
+industry = X['Sub-industry'].unique().tolist()
 
 header = dcc.Markdown('# Predictions', className='mb-5', style={'textAlign':'center'}),
 column1 = dbc.Col(
@@ -103,20 +100,22 @@ column2 = dbc.Col(
                 id='gdp',
                 type='number',
                 placeholder=2800,
+                value=2800,
                 min=0,
                 max=10000,
             ),
-            ], style={'align': 'left'}),
+            ]),
             html.Div([
             dcc.Markdown('### Past Year Payroll (in thousands of USD)'),
             dcc.Input(
                 id='payroll',
                 type='number',
                 placeholder=1300000,
+                value=1300000,
                 min=0,
                 max=1000000000
             ),
-            ], style={'align': 'right'}),
+            ]),
         ]),
 
         html.Br(),
@@ -147,9 +146,12 @@ column2 = dbc.Col(
 
 pred_out = dbc.Row(
     [
-        html.H2('Growth Prediction:', className='mb-5'),
+        html.H2('Growth Prediction:', className='mb-5', style={'position':'relative'}),
         html.Br(),
-        html.Div(id='prediction-content', className='lead')
+        html.Br(),
+        html.Div(id='prediction-content',
+                className='lead', 
+                style={'position':'fixed', 'right':50, 'border': '1px solid #2b3e50'}),
     ]
 )
 
@@ -157,22 +159,27 @@ pred_out = dbc.Row(
     Output('prediction-content', 'children'),
     [Input('state', 'value'),
      Input('growth_rate', 'value'),
-     Input('pay_inc', 'value'),
-     Input('industry', 'value'),
      Input('payroll', 'value'),
      Input('gdp', 'value'),
+     Input('pay_inc', 'value'),
+     Input('industry', 'value'),
      Input('ten_yr_pay', 'value')],
 )
 
 def predict(state, growth_rate, payroll, gdp, pay_inc, industry, ten_yr_pay):
     df = pd.DataFrame(
-        columns=['State', 'Sub-industry', 'Laste Year Payroll', 'Last Year Total GDP',
-                 'Last Year Growth Rate', '2 Year Ago Payroll Increase', 'Ten Year Payroll Change'],
-        data=[[state, industry, gdp, payroll, growth_rate,  pay_inc, ten_yr_pay]]
+        columns=['State', 'Sub-industry', 'Last Year Payroll', 'Last Year Total GDP',
+                'Last Year Growth Rate', '2 Year Ago Payroll Increase', 'Ten Year Payroll Change'],
+        data=[[state, industry, payroll, gdp, growth_rate,  pay_inc, ten_yr_pay]]
     )
-
+    
     y_pred = pipeline.predict(df)[0]
+    
+    if y_pred:
+        grow_pred = 'GROW'
+    else:
+        grow_pred = 'NOT GROW'
 
-    return f'{industry} in {state} will {y_pred} this year.'
+    return f'{industry} in {state} will {grow_pred} this year.'
 
 layout = dbc.Container(header), dbc.Row([column1, column2]), pred_out

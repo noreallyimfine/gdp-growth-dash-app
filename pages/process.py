@@ -23,6 +23,7 @@ column1 = dbc.Col(
         html.Img(src='assets/df_2.png',
                 className='img-fluid', 
         ),
+        html.Br(),
         dcc.Markdown(
             """ 
               
@@ -46,7 +47,11 @@ column1 = dbc.Col(
             component being measured.  
             """
         ),
-        html.Img(src='assets/merged_df_example.png', className='img-fluid'),
+        html.Img(src='assets/merged_df_example.png',
+                className='img-fluid', 
+                style={'margin-left':'auto', 'margin-right':'auto', 'width':'75%'}
+        ),
+        html.Br(),
         dcc.Markdown(
             """
             At this point I had my single dataset with all the important information preserved but I wasn't done yet.
@@ -86,6 +91,7 @@ column1 = dbc.Col(
                      'width': '50%'
                  })
         ], style={'textAlign': 'center'}),
+        html.Br(),
         dcc.Markdown(
             """
             In the bar plot below, we can see the 10 most important features in the model. To get a better sense of how different values
