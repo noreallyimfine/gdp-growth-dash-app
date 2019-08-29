@@ -7,26 +7,24 @@ from dash.dependencies import Input, Output
 from app import app
 
 header = dbc.Row(
-
-        dcc.Markdown
-        (
-            """  
-            # Insights
+    dcc.Markdown(
+        """  
+        # Insights
 
 
-            While machine learning models have a reputation of being **black boxes**,
-            for some models it is possible to peek inside and see how the conclusion was
-            reached. 
+        While machine learning models have a reputation of being **black boxes**,
+        for some models it is possible to peek inside and see how the conclusion was
+        reached. 
 
-            In the first section, we look at what factors were most important to the model.
-            Then we'll dive into a few particularly interesting decisions and analyze how 
-            the model did. As an aside, **this analysis is done on a more complex version of
-            the model than seen in the predictions page**. For information on the process of
-            building this model, check out the [Process](/process) page.
+        In the first section, we look at what factors were most important to the model.
+        Then we'll dive into a few particularly interesting decisions and analyze how 
+        the model did. As an aside, **this analysis is done on a more complex version of
+        the model than seen in the predictions page**. For information on the process of
+        building this model, check out the [Process](/process) page.
 
             
-           """
-        ),
+       """
+    ),
 )
 
 column1 = dbc.Col(
@@ -44,18 +42,20 @@ column1 = dbc.Col(
             average Payroll, the model is significantly more confident in the growth of the industry.
             ''',
             style={'margin':50}
-            
         ),
     ],
     md=6,
     style={'textAlign':'center'},
 )
 
-
 column2 = dbc.Col(
     [
         html.Br(),
-        html.Img(src='assets/gdp_payroll_interact.png', className='img-fluid', style={'margin':20})
+        html.Img(
+            src='assets/gdp_payroll_interact.png', 
+            className='img-fluid', 
+            style={'margin':20}
+        )
     ],
     md=6,
     style={'textAlign':'center'},
@@ -85,7 +85,10 @@ insight1 = dbc.Row(
             '''
         ),
         html.Br(),
-        html.Img(src='assets/shaply_wv_man_of_comp_just_right.png', className='img-fluid'),
+        html.Img(
+            src='assets/shaply_wv_man_of_comp_just_right.png',
+            className='img-fluid'
+        ),
     ]
 )
 
@@ -106,7 +109,10 @@ insight2 = dbc.Row(
             '''
         ),
         html.Br(),
-        html.Img(src='assets/shaply_kentucky_manufa_just_wrong.png', className='img-fluid'),
+        html.Img(
+            src='assets/shaply_kentucky_manufa_just_wrong.png', 
+            className='img-fluid'
+        ),
     ]
 )
 layout = header, dbc.Row([column1, column2]), insight1, insight2

@@ -7,7 +7,14 @@ from dash.dependencies import Input, Output
 from app import app
 
 header = dbc.Col(
-    dcc.Markdown('# Process', className='mb-5', style={'textAlign': 'center', 'textDecoration': 'underline'})
+            dcc.Markdown(
+                '# Process', 
+                className='mb-5', 
+                style={
+                    'textAlign': 'center', 
+                    'textDecoration': 'underline'
+                }
+            )
 )
 column1 = dbc.Col(
     [
@@ -51,11 +58,13 @@ column1 = dbc.Col(
             component being measured.  
             """
         ),
-        html.Div([
-            html.Img(src='assets/merged_df_example.png',
+        html.Div(
+            html.Img(
+                src='assets/merged_df_example.png',
                     className='img-fluid', 
+            ),
+            style={'textAlign':'center'}
         ),
-        ], style={'textAlign':'center'}),
         html.Br(),
         dcc.Markdown(
             """
@@ -88,14 +97,16 @@ column1 = dbc.Col(
             """
 
         ), 
-        html.Div([
+        html.Div(
             html.Img(
                 src='assets/final_test_accuracy.png', className='img-fluid',
                 style={
-                     'height': '50%',
-                     'width': '50%'
-                 })
-        ], style={'textAlign': 'center'}),
+                    'height': '50%',
+                    'width': '50%'
+                }
+            ), 
+            style={'textAlign': 'center'}
+        ),
         html.Br(),
         dcc.Markdown(
             """
@@ -104,9 +115,13 @@ column1 = dbc.Col(
             Or you can go to [Predictions](/predictions) to tune the features yourself and see what the model predicts!  
             """
         ),
-        html.Div([
-            html.Img(src='assets/feat_imps_label.png', className='img-fluid'),
-        ], style={'textAlign': 'center'}),
+        html.Div(
+            html.Img(
+                src='assets/feat_imps_label.png', 
+                className='img-fluid'
+            ),
+            style={'textAlign': 'center'}
+        ),
     ],
 )
 

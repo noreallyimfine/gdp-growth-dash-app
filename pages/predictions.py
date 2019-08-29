@@ -114,74 +114,82 @@ column2 = dbc.Col(
         html.Br(),
         html.Br(),
 
-        html.Div([
-            html.Div([
-            dcc.Markdown('### Past Year Total GDP (in millions of USD)'),
-            dcc.Input(
-                id='gdp',
-                type='number',
-                value=1,
-                min=1,
-                style={'color':'#2b3e50'},
-            ),
-            ], style={'textAlign':'center'}),
+        html.Div(
+            [
+                html.Div(
+                    [
+                        dcc.Markdown('### Past Year Total GDP (in millions of USD)'),
+                        dcc.Input(
+                            id='gdp',
+                            type='number',
+                            value=1000,
+                            min=1,
+                            style={'color':'#2b3e50'},
+                        ),
+                    ],
+                    style={'textAlign':'center'}
+                ),
             html.Br(), # space out dropdown bars
-            html.Div([
-            dcc.Markdown('### Past Year Payroll (in thousands of USD)'),
-            dcc.Input(
-                id='payroll',
-                type='number',
-                value=1,
-                min=1,
-                style={'color':'#2b3e50'},
+            html.Div(
+                [
+                    dcc.Markdown('### Past Year Payroll (in thousands of USD)'),
+                    dcc.Input(
+                        id='payroll',
+                        type='number',
+                        value=10000,
+                        min=1,
+                        style={'color':'#2b3e50'},
+                    ),
+                ],
+                style={'textAlign':'center'}
             ),
-            ], style={'textAlign':'center'}),
-        ]),
-
+            ]
+        ),
         html.Br(),
-
-               
     ],
     md=6,
 )
+
 subhead = dbc.Container(
     [
 
-    html.Br(),
-    html.Br(),
-    html.Br(),
-        dcc.Markdown('# Growth Prediction:',
-                className='mb-5',
-                style={
-                    'textDecoration':'underline',
-                    'textAlign':'center'}),
-    ], style={'align':'center'},
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        dcc.Markdown(
+            '# Growth Prediction:',
+            className='mb-5',
+            style={
+                'textDecoration':'underline',
+                'textAlign':'center'
+                }
+        ),
+    ],
+    style={'align':'center'},
 )
 pred_out = dbc.Col(
     [
-        #html.Br(),
-                html.Div(id='prediction-content',
-                        className='lead mb-5', 
-                        style={
-                            'color': 'black', 
-                            'background-color':'white',
-                            'margin':'auto', 
-                            #'position':'relative',
-                            'padding': '6px', 
-                            'border': '1px inset',
-                            'fontFamily':'Verdana',
-                            'textAlign':'center'
-                        }),
-                        html.Div(
-                                id='prediction-image',
-                                style={
-                                    'paddingBottom':5,
-                                    #'position':'relative',
-                                    #'float':'left',
-                                    'textAlign':'center'
-                                }
-                        )
-    ], #style={'align':'center'},
+        html.Div(
+            id='prediction-content',
+            className='lead mb-5', 
+            style={
+                'color': 'black', 
+                'background-color':'white',
+                'margin':'auto',
+                'padding': '6px', 
+                'border': '1px inset',
+                'fontFamily':'Verdana',
+                'textAlign':'center'
+                }
+        ),
+        html.Div(
+            id='prediction-image',
+            style={
+                'paddingBottom':5,
+                'textAlign':'center'
+                }
+        )
+    ], 
 )
 
 layout = dbc.Container(header), dbc.Row([column1, column2]), subhead, pred_out
