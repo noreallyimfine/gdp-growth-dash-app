@@ -14,7 +14,7 @@ X = load('assets/X.joblib')
 states = X['State'].unique().tolist()
 industry = X['Sub-industry'].unique().tolist()
 
-header = dcc.Markdown('# Predictions', className='mb-5', style={'textAlign':'center'}),
+header = dcc.Markdown('# Predictions', className='mb-5', style={'textAlign':'center', 'textDecoration':'underline'}),
 column1 = dbc.Col(
     [
         
@@ -157,7 +157,7 @@ subhead = dbc.Container(
                     'textAlign':'center'}),
     ], style={'align':'center'},
 )
-pred_out = dbc.Row(
+pred_out = dbc.Col(
     [
         #html.Br(),
                 html.Div(id='prediction-content',
@@ -165,20 +165,23 @@ pred_out = dbc.Row(
                         style={
                             'color': 'black', 
                             'background-color':'white',
-                            #'margin':'auto', 
+                            'margin':'auto', 
                             #'position':'relative',
                             'padding': '6px', 
                             'border': '1px inset',
-                            'fontFamily':'Verdana'
+                            'fontFamily':'Verdana',
+                            'textAlign':'center'
                         }),
                         html.Div(
                                 id='prediction-image',
                                 style={
+                                    'paddingBottom':5,
                                     #'position':'relative',
                                     #'float':'left',
+                                    'textAlign':'center'
                                 }
                         )
-    ], align='center',
+    ], #style={'align':'center'},
 )
 
 layout = dbc.Container(header), dbc.Row([column1, column2]), subhead, pred_out

@@ -6,8 +6,8 @@ from dash.dependencies import Input, Output
 
 from app import app
 
-header = dbc.Row(
-    html.H2('Process', )
+header = dbc.Col(
+    dcc.Markdown('# Process', className='mb-5', style={'textAlign': 'center', 'textDecoration': 'underline'})
 )
 column1 = dbc.Col(
     [
@@ -110,4 +110,4 @@ column1 = dbc.Col(
     ],
 )
 
-layout = dbc.Row([column1])
+layout = header, dbc.Row([column1])
