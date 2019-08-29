@@ -19,7 +19,8 @@ header = dbc.Row(
             In this section, we will look at what factors were most important to the model.
             Then we'll dive into a few particularly interesting decisions and analyze how 
             the model did. As an aside, **this analysis is done on a more complex version of
-            the model than seen in the predictions page**.
+            the model than seen in the predictions page**. For information on the process of
+            building this model, check out the [Process](/process) page
 
             
             """),

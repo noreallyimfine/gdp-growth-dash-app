@@ -40,14 +40,16 @@ column1 = dbc.Col(
 
             """
         ),
-        dcc.Link(dbc.Button('Find a Prediction', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Make Your Own Prediction', color='primary'), href='/predictions')
     ],
     md=4,
 )
 
 column2 = dbc.Col(
     [
-        html.Img(src='assets/gdp_image.jpg', className='img-fluid max-width: 50%'),
+        html.Img(src='assets/gdp_image.jpg',
+                className='img-fluid'),
+
     ]
 )
 

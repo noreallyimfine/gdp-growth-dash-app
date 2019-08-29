@@ -6,12 +6,13 @@ from dash.dependencies import Input, Output
 
 from app import app
 
+header = dbc.Row(
+    html.H2('Process', )
+)
 column1 = dbc.Col(
     [
         dcc.Markdown(
-            """
-        
-            # Process  
+            """  
 
             #### Gathering Data  
 
@@ -47,10 +48,11 @@ column1 = dbc.Col(
             component being measured.  
             """
         ),
-        html.Img(src='assets/merged_df_example.png',
-                className='img-fluid', 
-                style={'margin-left':'auto', 'margin-right':'auto', 'width':'75%'}
+        html.Div([
+            html.Img(src='assets/merged_df_example.png',
+                    className='img-fluid', 
         ),
+        ], style={'textAlign':'center'}),
         html.Br(),
         dcc.Markdown(
             """
@@ -99,7 +101,9 @@ column1 = dbc.Col(
             If you want to tune different features and make your own predictions with the model, you can do that [here](/predictions).  
             """
         ),
-        html.Img(src='assets/feat_imps_label.png', className='img-fluid'),
+        html.Div([
+            html.Img(src='assets/feat_imps_label.png', className='img-fluid'),
+        ], style={'textAlign': 'center'}),
     ],
 )
 

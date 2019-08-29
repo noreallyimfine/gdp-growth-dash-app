@@ -26,7 +26,8 @@ column1 = dbc.Col(
                 options = [
                     {'label':val, 'value': val} for val in states
                 ],
-                value=states[0],   
+                value=states[0],
+                style={'color':'#2b3e50'}   
             ),
 
             html.Br(),
@@ -71,12 +72,30 @@ column1 = dbc.Col(
                 value=.25,
             ),
 
-                
+            html.Br(),
 
-            
-            
+            dcc.Markdown('### Current Percent of 10 Years Ago Payroll'),
+            dcc.Slider(
+                id='ten_yr_pay',
+                min=0,
+                max=2,
+                marks = {
+                    0: '0%',
+                    .25: '25%',
+                    .50: '50%',
+                    .75: '75%',
+                    1: '100%',
+                    1.25: '125%',
+                    1.5: '150%',
+                    1.75: '175%',
+                    2: '200%',
+                },
+                value=1,
+                step=0.01,
+            ),
+
     ],
-    md=4,
+    md=6,
 )
 
 column2 = dbc.Col(
@@ -89,8 +108,10 @@ column2 = dbc.Col(
                     {'label':val, 'value': val} for val in industry
                 ],
                 value=industry[0],
+                style={'color':'#2b3e50'},
         ),
 
+        html.Br(),
         html.Br(),
 
         html.Div([
@@ -102,9 +123,10 @@ column2 = dbc.Col(
                 placeholder=2800,
                 value=2800,
                 min=0,
-                max=10000,
+                style={'color':'#2b3e50'},
             ),
-            ]),
+            ], style={'textAlign':'center'}),
+            html.Br(), # space out dropdown bars
             html.Div([
             dcc.Markdown('### Past Year Payroll (in thousands of USD)'),
             dcc.Input(
@@ -113,57 +135,71 @@ column2 = dbc.Col(
                 placeholder=1300000,
                 value=1300000,
                 min=0,
-                max=1000000000
+                style={'color':'#2b3e50'},
             ),
-            ]),
+            ], style={'textAlign':'center'}),
         ]),
 
         html.Br(),
 
-        dcc.Markdown('### Current Percent of 10 Years Ago Payroll'),
-        dcc.Slider(
-           id='ten_yr_pay',
-           min=0,
-           max=2,
-           marks = {
-               0: '0%',
-               .25: '25%',
-               .50: '50%',
-               .75: '75%',
-               1: '100%',
-               1.25: '125%',
-               1.5: '150%',
-               1.75: '175%',
-               2: '200%',
-           },
-           value=1,
-           step=0.01,
-        ),
-        
+               
     ],
-    
+    md=6,
 )
+subhead = dbc.Container(
+    [
 
+    html.Br(),
+    html.Br(),
+        dcc.Markdown('# Growth Prediction:',
+                className='mb-5',
+                style={
+                    'textDecoration':'underline',
+                    'textAlign':'center'}),
+    ], style={'align':'center'},
+)
 pred_out = dbc.Row(
     [
-        html.H2('Growth Prediction:', className='mb-5', style={'position':'relative'}),
-        html.Br(),
-        html.Br(),
-        html.Div(id='prediction-content',
-                className='lead', 
-                style={'position':'fixed', 'right':50, 'border': '1px solid #2b3e50'}),
+        
+        #html.Br(),
+        html.Div(
+            id='prediction-content',
+            className='lead', 
+            style={
+                'color': 'black', 
+                'background-color':'white',
+                'margin':'auto',
+                'float':'right', 
+                'position':'relative',
+                'padding': '6px', 
+                'border': '1px inset',
+                'fontFamily':'Verdana'
+            }
+        ),
+
+        html.Div(
+            id='prediction-image',
+            style={
+                'marginRight': 50,
+                'position':'relative',
+                'float':'right',
+            }
+        ),
     ]
 )
 
+layout = dbc.Container(header), dbc.Row([column1, column2]), subhead, pred_out
+
 @app.callback(
-    Output('prediction-content', 'children'),
+    [Output('prediction-content', 'children'),
+    Output('prediction-image', 'children')],
     [Input('state', 'value'),
-     Input('growth_rate', 'value'),
-     Input('payroll', 'value'),
-     Input('gdp', 'value'),
-     Input('pay_inc', 'value'),
-     Input('industry', 'value'),
-     Input('ten_yr_pay', 'value')],
+    Input('growth_rate', 'value'),
+    Input('payroll', 'value'),
+    Input('gdp', 'value'),
+    Input('pay_inc', 'value'),
+    Input('industry', 'value'),
+    Input('ten_yr_pay', 'value')],
 )
 
 def predict(state, growth_rate, payroll, gdp, pay_inc, industry, ten_yr_pay):
@@ -177,9 +213,10 @@ def predict(state, growth_rate, payroll, gdp, pay_inc, industry, ten_yr_pay):
     
     if y_pred:
         grow_pred = 'GROW'
+        output2 = html.Img(src='/assets/green_up_arrow_plot.png', className='img-fluid')
     else:
         grow_pred = 'NOT GROW'
+        output2 = html.Img(src='/assets/red_down_arrow_plot.png', className='img-fluid')
+    output1 = f'{industry} in {state} will {grow_pred} this year.'
 
-    return f'{industry} in {state} will {grow_pred} this year.'
-
-layout = dbc.Container(header), dbc.Row([column1, column2]), pred_out
+    return output1, output2

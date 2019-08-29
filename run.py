@@ -26,7 +26,7 @@ sticky (string, optional): Stick the navbar to the top or the bottom of the view
 """
 
 navbar = dbc.NavbarSimple(
-    brand='U.S. States GDP Growth by Industry Predictor',
+    brand='Grow or Contract',
     brand_href='/', 
     children=[
         dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
@@ -35,7 +35,7 @@ navbar = dbc.NavbarSimple(
     ],
     sticky='top',
     color='dark', 
-    light=False, 
+    light=False,
     dark=True
 )
 
@@ -45,10 +45,10 @@ footer = dbc.Container(
             html.P(
                 [
                     html.Span('Avraham Jacobsohn', className='mr-2'), 
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:avrahamjacobsohn@gmail.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/noreallyimfine'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/avraham-jacobsohn-b88b4526/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/noreallyimfine'), 
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:avrahamjacobsohn@gmail.com', style={'color':'#abb6c2'}), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/noreallyimfine', style={'color':'#abb6c2'}), 
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/avraham-jacobsohn-b88b4526/', style={'color':'#abb6c2'}), 
+                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/noreallyimfine', style={'color':'#abb6c2'}), 
                 ], 
                 className='lead'
             )
@@ -64,7 +64,7 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False), 
     navbar, 
     dbc.Container(id='page-content', className='mt-4'), 
-    html.Hr(), 
+    html.Hr(),
     footer
 ])
 
