@@ -25,6 +25,7 @@ column1 = dbc.Col(
                 className='img-fluid', 
         ),
         html.Br(),
+        html.Br(),
         dcc.Markdown(
             """ 
               
@@ -34,8 +35,10 @@ column1 = dbc.Col(
             by noticing the numeric columns had an object datatype and trying to change them to numeric would throw an error. Looking at all the values 
             in the column, I could find the ones that weren't numbers and replace them with NaNs to be dealt with.    
 
-            To fill the NaN values, I used the same data from the previous or following year as that would represent the closest I could get to the real
-            value.   
+            To fill the NaN values, I used the data from the previous or following year as that would represent the closest I could get to the real
+            value. Using mean or median of the column, a standard practice for filling NaNs would not have worked due to the vastly different sizes
+            of industries in different places. 
+
             #### Wrangling Data
 
             Each dataset had a bunch of descriptive columns. Some, such as GeoName (State) and Description (Industry) were crucial.
@@ -62,26 +65,26 @@ column1 = dbc.Col(
             at the data. 
 
             To bring to life the time component of this data I created some new features that measured changes over time. One feature that proved
-            particularly useful for my model was how much payroll increased year-over-year.
+            particularly useful for my model was how much Payroll increased year-over-year.
 
             ### Modeling
 
             Before beginning to build and iterate on a model, I needed to decide what the target would be. Although the dataset came with a feature
-            for the growth rate of an industry in a given year, I decided to alter it and aim for predicting whether or not the industry would grow in
-            the coming year. I created a column that was True/False if the industry had grown, and the latest year of data I had was the target.
+            for the growth rate of an industry in a given year, I decided to alter it and aim for predicting whether or not the industry would grow
+            in the coming year. I created a column that was True/False if the industry had grown, and the latest year of data I had was the target.
             (If an industry had a 0% growth rate I counted that as False)
 
             I split off and held out a test set, only manipulating it to engineer the same features as I did for the training set. The baseline model
-            to beat was 60%, being the accuracy you would get if you just guessed every industry in every state would grow. If my model couldn't do
+            to beat was 60%, being the accuracy you would get if you just guessed every industry in every state would **grow**. If my model couldn't do
             significantly better than that, it wouldn't be very useful.
             
-            I used both a 3-way split and cross-validation to iterate on my model. The 3-way split I used for trying new model types and cross-validation
-            I used for tuning the hyperparameters.
+            I used both a 3-way split and [cross-validation](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html)
+            to iterate on my model. The 3-way split I used for trying new model types and cross-validation I used for tuning the hyperparameters.
 
             Right away I saw improvements over the baseline and it was the case here that more complex models did better. For the final
             model I used all the features from the two previous years as well as the features I had engineered (which incorporated older
-            information as well). The best model for this problem was sciki-learns GradientBoostingClassifier and, with the right hyperparameters,
-            I got an accuracy score of nearly 80%.  
+            information as well). The best model for this problem was sciki-learn's [GradientBoostingClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)
+            and, with the right hyperparameters, I got an accuracy score of nearly 80%.  
             """
 
         ), 
@@ -98,7 +101,7 @@ column1 = dbc.Col(
             """
             In the bar plot below, we can see the 10 most important features in the model. To get a better sense of how different values
             for each feature affect individual predictions, head over to [Insights](/insights) to zoom in on a few interesting predictions.
-            If you want to tune different features and make your own predictions with the model, you can do that [here](/predictions).  
+            Or you can go to [Predictions](/predictions) to tune the features yourself and see what the model predicts!  
             """
         ),
         html.Div([

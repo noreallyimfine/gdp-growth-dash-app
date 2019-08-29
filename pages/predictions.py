@@ -120,9 +120,8 @@ column2 = dbc.Col(
             dcc.Input(
                 id='gdp',
                 type='number',
-                placeholder=2800,
-                value=2800,
-                min=0,
+                value=1,
+                min=1,
                 style={'color':'#2b3e50'},
             ),
             ], style={'textAlign':'center'}),
@@ -132,9 +131,8 @@ column2 = dbc.Col(
             dcc.Input(
                 id='payroll',
                 type='number',
-                placeholder=1300000,
-                value=1300000,
-                min=0,
+                value=1,
+                min=1,
                 style={'color':'#2b3e50'},
             ),
             ], style={'textAlign':'center'}),
@@ -151,6 +149,7 @@ subhead = dbc.Container(
 
     html.Br(),
     html.Br(),
+    html.Br(),
         dcc.Markdown('# Growth Prediction:',
                 className='mb-5',
                 style={
@@ -160,32 +159,26 @@ subhead = dbc.Container(
 )
 pred_out = dbc.Row(
     [
-        
         #html.Br(),
-        html.Div(
-            id='prediction-content',
-            className='lead', 
-            style={
-                'color': 'black', 
-                'background-color':'white',
-                'margin':'auto',
-                'float':'right', 
-                'position':'relative',
-                'padding': '6px', 
-                'border': '1px inset',
-                'fontFamily':'Verdana'
-            }
-        ),
-
-        html.Div(
-            id='prediction-image',
-            style={
-                'marginRight': 50,
-                'position':'relative',
-                'float':'right',
-            }
-        ),
-    ]
+                html.Div(id='prediction-content',
+                        className='lead mb-5', 
+                        style={
+                            'color': 'black', 
+                            'background-color':'white',
+                            #'margin':'auto', 
+                            #'position':'relative',
+                            'padding': '6px', 
+                            'border': '1px inset',
+                            'fontFamily':'Verdana'
+                        }),
+                        html.Div(
+                                id='prediction-image',
+                                style={
+                                    #'position':'relative',
+                                    #'float':'left',
+                                }
+                        )
+    ], align='center',
 )
 
 layout = dbc.Container(header), dbc.Row([column1, column2]), subhead, pred_out

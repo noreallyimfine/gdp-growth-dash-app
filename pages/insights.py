@@ -7,23 +7,26 @@ from dash.dependencies import Input, Output
 from app import app
 
 header = dbc.Row(
-            dcc.Markdown(
-                """
-        
-            # Insights  
 
-            While machine learning models have a reputation as being **black boxes**,
-            for some models it is possible to peek inside and see how it came to
-            the conclusions it did.  
+        dcc.Markdown
+        (
+            """  
+            # Insights
 
-            In this section, we will look at what factors were most important to the model.
+
+            While machine learning models have a reputation of being **black boxes**,
+            for some models it is possible to peek inside and see how the conclusion was
+            reached. 
+
+            In the first section, we look at what factors were most important to the model.
             Then we'll dive into a few particularly interesting decisions and analyze how 
             the model did. As an aside, **this analysis is done on a more complex version of
             the model than seen in the predictions page**. For information on the process of
-            building this model, check out the [Process](/process) page
+            building this model, check out the [Process](/process) page.
 
             
-            """),
+           """
+        ),
 )
 
 column1 = dbc.Col(
@@ -38,20 +41,24 @@ column1 = dbc.Col(
 
             One interesting thing to note is how Payroll is having a larger effect than GDP. All the puple is
             on the bottom, where Payroll is at its' lowest. In contrast even where GDP is very low, with just
-            average Payroll, the model is significantly for confident in the growth of the industry.
-            '''
+            average Payroll, the model is significantly more confident in the growth of the industry.
+            ''',
+            style={'margin':50}
             
         ),
     ],
-    md=4,
+    md=6,
+    style={'textAlign':'center'},
 )
 
 
 column2 = dbc.Col(
     [
         html.Br(),
-        html.Img(src='assets/gdp_payroll_interact.png', className='img-fluid')
-    ]
+        html.Img(src='assets/gdp_payroll_interact.png', className='img-fluid', style={'margin':20})
+    ],
+    md=6,
+    style={'textAlign':'center'},
 )
 
 insight1 = dbc.Row(
@@ -61,8 +68,8 @@ insight1 = dbc.Row(
             '''
             In the plot below we zoom in on an individual prediction the model made. This is
             **Management of Companies and Enterprises in West Virginia**. This plot shows how
-            much each factor pushed the model, in what direction, and shows the final prediction
-            the model made. The red bars represent movement in the direction of predictiong growth,
+            much each factor pushed the model, in what direction, and the final prediction
+            the model made. The red bars represent movement in the direction of predicting growth,
             the blue bars represent movement against. The first tick on the right of where the bars
             meet is where it starts off. On average, more industries grew than not, and the model takes
             that into account.
